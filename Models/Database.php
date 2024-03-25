@@ -26,11 +26,8 @@ class DBContext{
     
 
 
-    function getAllCustomers($sortCol = null, $sortOrder= null){
-        $sortCol = $sortCol ? $sortCol :'Id';
-        $sortOrder = $sortOrder ? $sortOrder :'asc';
-        $sql = "SELECT * FROM Customer order by $sortCol $sortOrder";
-        echo $sql;
+    function getAllCustomers(){
+        $sql = "SELECT * FROM Customer";
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Customer');
     }
     function getCustomer($id){

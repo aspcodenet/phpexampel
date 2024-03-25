@@ -128,26 +128,26 @@ $urlModifier = new UrlModifier();
             <tr class="tabulator-row">
                 <th class="tabulator-cell">
                     National ID
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"asc", "sortCol"=>"NationalId"]) ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"desc", "sortCol"=>"NationalId"]) ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
                     </th>
 
                 <th >
                     Förnamn
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"asc", "sortCol"=>"GivenName"]) ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"desc", "sortCol"=>"GivenName"]) ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>Efternamn
-                <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"asc", "sortCol"=>"Surname"]) ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"desc", "sortCol"=>"Surname"]) ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <i class="fa-solid fa-arrow-up-a-z"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>City                
-                <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"asc", "sortCol"=>"City"]) ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"desc", "sortCol"=>"City"]) ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>Country                
-                <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"asc", "sortCol"=>"Country"]) ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                    <a href="<?php echo UrlModifier::changeParameters($_SERVER['REQUEST_URI'],["sortOrder"=>"desc", "sortCol"=>"Country"]) ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <i class="fa-solid fa-arrow-up-a-z"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th></th>
             </tr>
@@ -155,7 +155,7 @@ $urlModifier = new UrlModifier();
         </thead>
         <tbody>
             <?php
-            foreach($dbContext->getAllCustomers($_GET["sortCol"] ?? null, $_GET["sortOrder"] ?? null) as $customer) {
+            foreach($dbContext->getAllCustomers() as $customer) {
             ?>
                 <tr class="tabulator-row">
                     <td ><?php echo $customer->NationalId ?></td>
@@ -164,7 +164,7 @@ $urlModifier = new UrlModifier();
                     <td ><?php echo $customer->City ?></td>
                     <td><?php echo $customer->Country ?></td>
                     <td>
-                        <a class="listbutton" href="/customer.php?id=<?php echo $customer->Id ?>">Edit</a>
+                        <a class="listbutton" href="/customer.php">Edit</a>
                     </td>
                 </tr>
             <?php
