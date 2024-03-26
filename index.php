@@ -3,6 +3,8 @@ require_once("Models/Database.php");
 require_once("Utils/UrlModifier.php");
 $dbContext = new DBContext();
 $urlModifier = new UrlModifier();
+$sortOrder = $_GET['sortOrder'] ?? "";
+$sortCol = $_GET['sortCol'] ?? "";
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -128,14 +130,16 @@ $urlModifier = new UrlModifier();
             <tr class="tabulator-row">
                 <th class="tabulator-cell">
                     National ID
-                    <i class="fa-solid fa-arrow-up-a-z"></i>
-                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
-                    </th>
+                    <a href="?sortCol=NationalId&sortOrder=asc"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    
+                    <a href="?sortCol=NationalId&sortOrder=desc"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                </th>
 
                 <th >
                     Förnamn
-                    <i class="fa-solid fa-arrow-up-a-z"></i>
-                    <i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=GivenName&sortOrder=asc"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    
+                    <a href="?sortCol=GivenName&sortOrder=desc"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>Efternamn
                 <i class="fa-solid fa-arrow-up-a-z"></i>
@@ -155,7 +159,7 @@ $urlModifier = new UrlModifier();
         </thead>
         <tbody>
             <?php
-            foreach($dbContext->getAllCustomers() as $customer) {
+            foreach($dbContext->getAllCustomers($sortCol,$sortOrder) as $customer) {
             ?>
                 <tr class="tabulator-row">
                     <td ><?php echo $customer->NationalId ?></td>
