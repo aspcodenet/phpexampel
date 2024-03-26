@@ -30,15 +30,33 @@ class DBContext{
     
 
 
-    function getAllCustomers($sortCol, $sortOrder){
+    function getAllCustomers($sortCol, $sortOrder, $q){
         if($sortCol == null){
             $sortCol = "Id";
         }
         if($sortOrder == null){
             $sortOrder = "asc";
         }
-        $sql = "SELECT * FROM Customer ORDER BY $sortCol $sortOrder";    
-        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Customer');
+        $sql = "SELECT * FROM Customer ";    
+        $paramsArray = [];
+        if($q != null || strlen($q) > 0){
+            $sql = $sql . " WHERE NationalId like :q";        
+            $sql = $sql . " OR  GivenName like :q";        
+            $sql = $sql . " OR  Surname like :q";        
+            $sql = $sql . " OR  City like :q";        
+            $sql = $sql . " OR  Country like :q " ;        
+            $paramsArray["q"] = '%' . $q . '%';
+        }
+
+        $sql = $sql . " ORDER BY $sortCol $sortOrder";   
+        echo $sql; 
+
+        $prep = $this->pdo->prepare($sql);
+        $prep->setFetchMode(PDO::FETCH_CLASS,'Customer');
+        $prep->execute($paramsArray);
+
+
+        return $prep->fetchAll();
     }
     function getCustomer($id){
         $prep = $this->pdo->prepare('SELECT * FROM Customer where id=:id');

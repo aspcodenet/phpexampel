@@ -7,6 +7,7 @@ $dbContext = new DBContext();
 $urlModifier = new UrlModifier();
 $sortOrder = $_GET['sortOrder'] ?? "";
 $sortCol = $_GET['sortCol'] ?? "";
+$q = $_GET['q'] ?? "";
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -122,11 +123,17 @@ $sortCol = $_GET['sortCol'] ?? "";
             </div>
         </div>
     </div>
+
     <a class="listbutton" href="/admin/1/locations/new">
         <span class="fas fa-plus mr-2"></span>
         Ny kund
     </a>
     <br/><br/>
+    <form method="get">
+        <input type="hidden" name="sortCol" value="<?php echo $sortCol; ?>" />
+        <input type="hidden" name="sortOrder" value="<?php echo $sortOrder; ?>" />
+        <input type="text" value="" name="q" />
+    </form>
     <table class="tabulator-table">
         <thead>
             <tr class="tabulator-row">
@@ -161,7 +168,7 @@ $sortCol = $_GET['sortCol'] ?? "";
         </thead>
         <tbody>
             <?php
-            foreach($dbContext->getAllCustomers($sortCol,$sortOrder) as $customer) {
+            foreach($dbContext->getAllCustomers($sortCol,$sortOrder,$q) as $customer) {
             ?>
                 <tr class="tabulator-row">
                     <td ><?php echo $customer->NationalId ?></td>
