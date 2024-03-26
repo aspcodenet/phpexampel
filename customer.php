@@ -1,10 +1,12 @@
 <?php
+require_once 'vendor/autoload.php';
+
 require_once("Models/Database.php");
 $dbContext = new DBContext();
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? "";
 
-$customer = $dbContext->getCustomer($id)
+$customer = $dbContext->getCustomer($id);
 
 ?>
 <!DOCTYPE HTML>
