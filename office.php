@@ -5,11 +5,14 @@ require_once("Utils/UrlModifier.php");
 $sortOrder = $_GET['sortOrder'] ?? "";
 $sortCol = $_GET['sortCol'] ?? "";
 $q = $_GET['q'] ?? "";
+$categoryId =  $_GET['id'] ?? "";
 
 
 $dbContext = new DBContext();
 $urlModifier = new UrlModifier();
 
+
+$theOffice = $dbContext->getOffice($categoryId);
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -112,7 +115,7 @@ $urlModifier = new UrlModifier();
             <div class="col-table">
                 <div class="table-section">
                     <div class="header-table">
-                        <h2>Kunder</h2>
+                        <h2>Kunder i <?php echo $theOffice->Name ?></h2>
                         <a id="clear-filter" href="javascript:void">see all</a>
                     </div>
                 </div>
@@ -128,6 +131,7 @@ $urlModifier = new UrlModifier();
     <form method="GET">
         Search:
         <input type="text" name="q" class="form-control" value="<?php echo $q ?>"  />
+        <input type="hidden" name="id" value="<?php echo $categoryId ?>" />
         <!-- <input type="hidden" name="sortCol" value="<?php echo $sortCol ?>" />
         <input type="hidden" name="sortOrder" value="<?php echo $sortOrder ?>" /> -->
     </form>
@@ -136,31 +140,31 @@ $urlModifier = new UrlModifier();
             <tr class="tabulator-row">
                 <th class="tabulator-cell">
                     National ID
-                    <a href="?sortCol=NationalId&sortOrder=asc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    <a href="?sortCol=NationalId&sortOrder=asc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
                     
-                    <a href="?sortCol=NationalId&sortOrder=desc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=NationalId&sortOrder=desc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
 
                 <th >
                     Förnamn
-                    <a href="?sortCol=GivenName&sortOrder=asc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    <a href="?sortCol=GivenName&sortOrder=asc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
                     
-                    <a href="?sortCol=GivenName&sortOrder=desc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=GivenName&sortOrder=desc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>Efternamn
-                    <a href="?sortCol=Surname&sortOrder=asc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    <a href="?sortCol=Surname&sortOrder=asc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
                     
-                    <a href="?sortCol=Surname&sortOrder=desc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=Surname&sortOrder=desc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>City                
-                    <a href="?sortCol=City&sortOrder=asc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    <a href="?sortCol=City&sortOrder=asc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
                     
-                    <a href="?sortCol=City&sortOrder=desc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=City&sortOrder=desc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th>Country                
-                    <a href="?sortCol=Country&sortOrder=asc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
+                    <a href="?sortCol=Country&sortOrder=asc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-up-a-z"></i></a>
                     
-                    <a href="?sortCol=Country&sortOrder=desc&q=<?php echo $q ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                    <a href="?sortCol=Country&sortOrder=desc&q=<?php echo $q ?>&id=<?php echo $categoryId ?>"><i class="fa-solid fa-arrow-down-z-a"></i></a>
                 </th>
                 <th></th>
             </tr>
@@ -168,7 +172,7 @@ $urlModifier = new UrlModifier();
         </thead>
         <tbody>
             <?php
-            foreach($dbContext->searchCustomers($sortCol,$sortOrder,$q,null) as $customer) {
+            foreach($dbContext->searchCustomers($sortCol,$sortOrder,$q,$categoryId) as $customer) {
             ?>
                 <tr class="tabulator-row">
                     <td ><?php echo $customer->NationalId ?></td>

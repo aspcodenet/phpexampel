@@ -12,8 +12,7 @@ $customer = $dbContext->getCustomer($id)
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title th:text="${pageTitle}">Stefans Webshop</title>
+    <title >Stefans Webshop</title>
 
     <link rel="icon" type="image/*" size="32*32" href="/images/rocket.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -125,7 +124,7 @@ $customer = $dbContext->getCustomer($id)
                             <tr>
                                 <th><label for="name">Förnamn</label></th>
                                 <td>
-                                    <input class="form-control" type="text" id="name" name="name" value="<?php echo $customer->GivenName ?>">
+                                    <input class="form-control" type="text" id="givenName" name="givenName" value="<?php echo $customer->GivenName ?>">
                                     
                                 </td>
                             </tr>
@@ -133,7 +132,7 @@ $customer = $dbContext->getCustomer($id)
                             <tr>
                                 <th><label for="name">Efternamn</label></th>
                                 <td>
-                                    <input class="form-control" type="text" id="name" name="name" value="<?php echo $customer->Surname ?>">
+                                <input class="form-control" type="text" id="surname" name="surname" value="<?php echo $customer->Surname ?>">
                                     
                                 </td>
                             </tr>

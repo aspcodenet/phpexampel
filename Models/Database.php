@@ -26,15 +26,51 @@ class DBContext{
     
 
 
-    function getAllCustomers($sortCol, $sortOrder){
+    function searchCustomers($sortCol, $sortOrder, $q,$categoryId){
         if($sortCol == null){
             $sortCol = "Id";
         }
         if($sortOrder == null){
             $sortOrder = "asc";
         }
-        $sql = "SELECT * FROM Customer ORDER BY $sortCol $sortOrder";    
-        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'Customer');
+        $sql = "SELECT * FROM Customer ";
+        $paramsArray = [];
+        $addedWhere = false;
+        if($q != null && strlen($q) > 0){  // Omman angett ett q - WHERE   tef
+                // select * from product where title like '%tef%' // Stefan  tefan atef
+            if(!$addedWhere){
+                $sql = $sql . " WHERE ";            
+                $addedWhere = true;
+            }else{
+                $sql = $sql . " AND ";    
+            }
+            $sql = $sql . " ( NationalId like :q";        
+            $sql = $sql . " OR  GivenName like :q";        
+            $sql = $sql . " OR  Surname like :q";        
+            $sql = $sql . " OR  City like :q )";        
+            $paramsArray["q"] = '%' . $q . '%';                
+        }
+        if($categoryId != null && strlen($categoryId) > 0){
+            if(!$addedWhere){
+                $sql = $sql . " WHERE ";            
+                $addedWhere = true;
+            }else{
+                $sql = $sql . " AND ";    
+            }
+
+            $sql = $sql . " ( OfficeId = :categoryId )";        
+            $paramsArray["categoryId"] = $categoryId;                
+        }
+
+        
+        $sql .= " ORDER BY $sortCol $sortOrder ";    
+
+        $prep = $this->pdo->prepare($sql);
+        $prep->setFetchMode(PDO::FETCH_CLASS,'Customer');
+        $prep->execute($paramsArray);
+
+
+        return $prep->fetchAll();        
     }
     function getCustomer($id){
         $prep = $this->pdo->prepare('SELECT * FROM Customer where id=:id');
@@ -49,12 +85,21 @@ class DBContext{
         return  $prep->fetch();
     }
 
-    function getOfficeByName($title) : Office | false{
+    function getOfficeByName($title) {
         $prep = $this->pdo->prepare('SELECT * FROM Office where name=:title');
         $prep->setFetchMode(PDO::FETCH_CLASS,'Office');
         $prep->execute(['title'=> $title]); 
         return  $prep->fetch();
     }
+
+
+    function getOffice($id) {
+        $prep = $this->pdo->prepare('SELECT * FROM Office where id=:id');
+        $prep->setFetchMode(PDO::FETCH_CLASS,'Office');
+        $prep->execute(['id'=> $id]); 
+        return  $prep->fetch();
+    }
+
 
 
 
@@ -283,11 +328,21 @@ class DBContext{
             ) ";
 
         $this->pdo->exec($sql);
-        $this->addOffice("Stiedermann","74454 Vandervort Shore","Mullerbury","42160");
-        $this->addOffice("Mckenna Huel DDS","888 Kenyon Light","D'Amorehaven","48043");
-        $this->addOffice("Cartwright","936 Kiehn Route","West Ned","11230");
-        $this->addOffice("Mayert","4059 Carling Avenue","Ottawa","WE-QQQ1-123");
-        $this->addOffice("Ritchie","96163 Kreiger Cape","Lambertberg","76287-7180");
+        if(!$this->getOfficeByName("Stiedermann")){
+            $this->addOffice("Stiedermann","74454 Vandervort Shore","Mullerbury","42160");
+        }
+        if(!$this->getOfficeByName("Mckenna Huel DDS")){
+            $this->addOffice("Mckenna Huel DDS","888 Kenyon Light","D'Amorehaven","48043");
+        }
+        if(!$this->getOfficeByName("Cartwright")){
+            $this->addOffice("Cartwright","936 Kiehn Route","West Ned","11230");
+        }
+        if(!$this->getOfficeByName("Mayert")){
+            $this->addOffice("Mayert","4059 Carling Avenue","Ottawa","WE-QQQ1-123");
+        }
+        if(!$this->getOfficeByName("Ritchie")){
+            $this->addOffice("Ritchie","96163 Kreiger Cape","Lambertberg","76287-7180");
+        }
 
         $sql  ="CREATE TABLE IF NOT EXISTS `Customer` (
             `Id` int NOT NULL AUTO_INCREMENT,
