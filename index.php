@@ -1,5 +1,10 @@
 <?php
 
+require_once('vendor/autoload.php');
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 require_once(dirname(__FILE__) ."/Utils/Router.php");
 
 $router = new Router();
@@ -15,3 +20,5 @@ $router->addRoute('/office', function () {
 
 $router->dispatch();
 ?>
+
+// extension=openssl
