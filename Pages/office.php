@@ -82,7 +82,7 @@ $theOffice = $dbContext->getOffice($categoryId);
             <?php foreach($dbContext->getAllOffices() as $office){ ?>
 
                 <li>
-                    <a href="/office.php?id=<?php echo $office->Id ?>"  >
+                    <a href="/office?id=<?php echo $office->Id ?>"  >
                         <span class="sidebar-icon"><i class="fa-solid fa-building"></i></span>
                         <span class="sidebar-text"><?php echo $office->Name ?></span>
                     </a>
@@ -181,7 +181,7 @@ $theOffice = $dbContext->getOffice($categoryId);
                     <td ><?php echo $customer->City ?></td>
                     <td><?php echo $customer->Country ?></td>
                     <td>
-                        <a class="listbutton" href="/customer.php?id=<?php echo $customer->Id ?>">Edit</a>
+                        <a class="listbutton" href="/customer?id=<?php echo $customer->Id ?>">Edit</a>
                     </td>
                 </tr>
             <?php
