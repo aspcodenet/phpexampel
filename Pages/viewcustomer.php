@@ -78,7 +78,7 @@ $customer = $dbContext->getCustomer($id);
             <?php foreach($dbContext->getAllOffices() as $office){ ?>
 
                 <li>
-                    <a href="/office.php?id=<?php echo $office->Id ?>"  >
+                    <a href="/office?id=<?php echo $office->Id ?>"  >
                         <span class="sidebar-icon"><i class="fa-solid fa-building"></i></span>
                         <span class="sidebar-text"><?php echo $office->Name ?></span>
                     </a>
