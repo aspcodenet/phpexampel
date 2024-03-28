@@ -24,8 +24,6 @@ class DBContext{
         
     }
     
-
-
     function searchCustomers($sortCol, $sortOrder, $q,$categoryId){
         if($sortCol == null){
             $sortCol = "Id";
@@ -72,7 +70,8 @@ class DBContext{
 
         return $prep->fetchAll();        
     }
-    function getCustomer($id){
+
+ function getCustomer($id){
         $prep = $this->pdo->prepare('SELECT * FROM Customer where id=:id');
         $prep->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $prep->execute(['id'=> $id]);

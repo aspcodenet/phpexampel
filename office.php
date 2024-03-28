@@ -129,11 +129,10 @@ $theOffice = $dbContext->getOffice($categoryId);
     </a>
     <br/><br/>
     <form method="GET">
-        Search:
+        Search i <?php echo $theOffice->Name ?>:
         <input type="text" name="q" class="form-control" value="<?php echo $q ?>"  />
         <input type="hidden" name="id" value="<?php echo $categoryId ?>" />
-        <!-- <input type="hidden" name="sortCol" value="<?php echo $sortCol ?>" />
-        <input type="hidden" name="sortOrder" value="<?php echo $sortOrder ?>" /> -->
+
     </form>
     <table class="tabulator-table">
         <thead>
