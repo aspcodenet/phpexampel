@@ -120,7 +120,7 @@ $urlModifier = new UrlModifier();
             </div>
         </div>
     </div>
-    <a class="listbutton" href="/admin/1/locations/new">
+    <a class="listbutton" href="/newcustomer">
         <span class="fas fa-plus mr-2"></span>
         Ny kund
     </a>

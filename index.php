@@ -9,6 +9,10 @@ $router->addRoute('/', function () {
 $router->addRoute('/customer', function () {
     require __DIR__ .'/Pages/customer.php';
 });
+$router->addRoute('/newcustomer', function () {
+    require __DIR__ .'/Pages/newcustomer.php';
+});
+
 $router->addRoute('/office', function () {
     require __DIR__ .'/Pages/office.php';
 });
