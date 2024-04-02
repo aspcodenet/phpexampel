@@ -1,6 +1,7 @@
 <?php
 require_once('Models/Customer.php');
 require_once('Models/Office.php');
+require_once('Models/UserDatabase.php');
 
 
 class DBContext{
@@ -11,10 +12,16 @@ class DBContext{
     private  $charset = 'utf8mb4';
 
     private $pdo;
+    private $usersDatabase;
+
+    function getUsersDatabase(){
+        return $this->usersDatabase;
+    }
     
     function __construct() {    
         $dsn = "mysql:host=$this->host;dbname=$this->db";
         $this->pdo = new PDO($dsn, $this->user, $this->pass);
+        $this->usersDatabase = new UserDatabase($this->pdo);
         $this->initIfNotInitialized();
         $this->seedfNotSeeded();
     }
@@ -375,6 +382,10 @@ class DBContext{
           ) ";
 
         $this->pdo->exec($sql);
+
+
+        $this->usersDatabase->setupUsers();
+        $this->usersDatabase->seedUsers();
 
         $initialized = true;
     }

@@ -28,5 +28,13 @@ $router->addRoute('/viewcustomer', function () {
     require __DIR__ .'/Pages/viewcustomer.php';
 });
 
+$router->addRoute('/user/login', function () {
+    require(__DIR__ .'/Pages/users/login.php');
+});
+
+$router->addRoute('/user/logout', function () {
+    require(__DIR__ .'/Pages/users/logout.php');
+});
+
 $router->dispatch();
 ?>
