@@ -3,9 +3,8 @@ require_once("Models/Database.php");
 require_once("Utils/Validator.php");
 $dbContext = new DBContext();
 
-$id = $_GET['id'];
 
-$customer = $dbContext->getCustomer($id);
+$customer = new Customer();
 $message = "";
 
 $v = new Validator($_POST);
@@ -38,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     //    $v->field('sex')->enum(['male', 'female', 'others']);
     //  $v->field('phone')->numeric()->min_len(10)->max_len(10);    
     if($v->is_valid()){
-        $dbContext->updateCustomer($customer->Id,$customer->GivenName,$customer->Surname,$customer->Streetaddress,$customer->City,$customer->Zipcode,
+        $dbContext->addCustomer($customer->GivenName,$customer->Surname,$customer->Streetaddress,$customer->City,$customer->Zipcode,
         $customer->Country,   $customer->CountryCode, $customer->Birthday,$customer->NationalId,$customer->TelephoneCountryCode,
         $customer->Telephone,$customer->EmailAddress,$customer->OfficeId
         );    
@@ -164,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <div class="col-table">
                 <div class="table-section">
                     <div class="header-table">
-                        <h2>Ändra kund - <?php echo $message; ?></h2>
+                        <h2>Ny kund - <?php echo $message; ?></h2>
                     </div>
                     <form method="post" class="form">
                         <table width="100%">

@@ -291,14 +291,25 @@ class DBContext{
     }
 
 
+    function updateCustomer($id, $givenname, $surname,$Streetaddress, $City, $Zipcode, $Country, $CountryCode, $Birthday, $NationalId, $TelephoneCountryCode, $Telephone, $EmailAddress, $OfficeId){
+        $prep = $this->pdo->prepare("UPDATE  Customer SET
+                        GivenName=:GivenName, Surname=:Surname, Streetaddress=:Streetaddress, 
+                        City=:City, Zipcode=:Zipcode, Country=:Country, CountryCode=:CountryCode, Birthday=:Birthday, 
+                        NationalId=:NationalId,TelephoneCountryCode=:TelephoneCountryCode,Telephone=:Telephone,
+                        EmailAddress=:EmailAddress,OfficeId=:OfficeId
+                        WHERE id=:id;
+        ");
+        $prep->execute(["GivenName"=>$givenname,"Surname"=>$surname,"Streetaddress"=>$Streetaddress,"City"=>$City,
+            "Zipcode"=>$Zipcode,"Country"=>$Country,
+            "CountryCode"=>$CountryCode,"Birthday"=>$Birthday,"NationalId"=>$NationalId,"TelephoneCountryCode"=>$TelephoneCountryCode,
+            "Telephone"=>$Telephone,"EmailAddress"=>$EmailAddress,"OfficeId"=>$OfficeId,"id"=>$id]);
+                  
+    }
+
+
+
+
     function addCustomer($givenname, $surname,$Streetaddress, $City, $Zipcode, $Country, $CountryCode, $Birthday, $NationalId, $TelephoneCountryCode, $Telephone, $EmailAddress, $OfficeId){
-        //Random 
-        // $offices = $this->getAllOffices();
-        // $office = $offices[array_rand($offices)];
-
-
-        //insert plus get new id 
-        // return id             
         $prep = $this->pdo->prepare("INSERT INTO Customer
                         (GivenName, Surname, Streetaddress, City, Zipcode, Country, CountryCode, Birthday, NationalId, TelephoneCountryCode, Telephone, EmailAddress, OfficeId)
                     VALUES(:GivenName, :Surname, :Streetaddress, :City, :Zipcode, :Country, :CountryCode, :Birthday, :NationalId, :TelephoneCountryCode, :Telephone, :EmailAddress, :OfficeId);
