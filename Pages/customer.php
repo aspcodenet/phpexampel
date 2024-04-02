@@ -42,7 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $customer->Country,   $customer->CountryCode, $customer->Birthday,$customer->NationalId,$customer->TelephoneCountryCode,
         $customer->Telephone,$customer->EmailAddress,$customer->OfficeId
         );    
-        $message = "SPARAD";
+        //Hoppa till sidan "/"
+        //header("Location: /"); // uppmaning Location = byt location till det jag säger
+        header("Location: /"); // uppmaning Location = byt location till det jag säger
+        exit;
     }else{
         $message = "FIXA FEL";
     }
