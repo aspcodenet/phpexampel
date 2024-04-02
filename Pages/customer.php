@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     // VALIDERA
     $v->field('GivenName')->required()->alpha([' '])->min_len(1)->max_len(200);
     $v->field('Surname')->required()->alpha([' '])->min_len(2)->max_len(200);
+    $v->field('OfficeId')->required()->numeric()->min_val(1);
     //$v->field('age') ->required()->numeric()->min_val(14)->max_val(100);
     $v->field('EmailAddress')->required()->email();
     // $v->field('password')->required()->min_len(8)->max_len(16)->must_contain('@#$&')->must_contain('a-z')->must_contain('A-Z')->must_contain('0-9');
@@ -282,8 +283,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                             <tr>
                                 <th><label for="name">OfficeId</label></th>
                                 <td>
-                                <input class="form-control" type="text" name="OfficeId" value="<?php echo $customer->OfficeId ?>">
-                                    
+
+                                <select class="form-control"  name="OfficeId" >
+                                        <option value="0">Välj en av dessa</option>
+                                        <?php foreach($dbContext->getAllOffices() as $office){
+                                            $selected = '';
+                                            if($customer->OfficeId == $office->Id ){
+                                                $selected = "selected";
+                                            }
+                                            echo "<option $selected value='$office->Id'>$office->Name</option>";    
+                                            
+                                        }
+                                        ?>
+                                </select>
+                                <span class="alert"><?php echo $v->get_error_message('OfficeId');  ?></span>
+
+
+
                                 </td>
                             </tr>
 

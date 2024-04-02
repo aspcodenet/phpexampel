@@ -279,7 +279,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                             <tr>
                                 <th><label for="name">OfficeId</label></th>
                                 <td>
-                                <input class="form-control" type="text" name="OfficeId" value="<?php echo $customer->OfficeId ?>">
+                                    
+                                
+                                <select class="form-control"  name="OfficeId" >
+                                        <option value="0">Välj en av dessa</option>
+                                        <?php foreach($dbContext->getAllOffices() as $office){
+                                            $selected = '';
+                                            if($customer->OfficeId == $office->Id ){
+                                                $selected = "selected";
+                                            }
+                                            echo "<option $selected value='$office->Id'>$office->Name</option>";    
+                                            
+                                        }
+                                        ?>
+                                </select>
                                     
                                 </td>
                             </tr>
