@@ -1,13 +1,19 @@
 <?php
 require_once('Models/Customer.php');
 require_once('Models/Office.php');
+require_once('Models/UserDatabase.php');
 
 
 class DBContext{
 
 
     private $pdo;
-    
+    private $usersDatabase;
+
+    function getUsersDatabase(){
+        return $this->usersDatabase;
+    }
+        
     function __construct() {    
         $host = $_ENV['host'];
         $db   = $_ENV['db'];
@@ -15,6 +21,7 @@ class DBContext{
         $pass = $_ENV['pass'];
         $dsn = "mysql:host=$host;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
+        $this->usersDatabase = new UserDatabase($this->pdo);
         $this->initIfNotInitialized();
         $this->seedfNotSeeded();    
     }
@@ -375,6 +382,9 @@ class DBContext{
           ) ";
 
         $this->pdo->exec($sql);
+
+        $this->usersDatabase->setupUsers();
+        $this->usersDatabase->seedUsers();
 
         $initialized = true;
     }
