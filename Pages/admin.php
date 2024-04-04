@@ -8,6 +8,13 @@ require_once("Pages/layout/footer.php");
 
 $dbContext = new DBContext();
 
+
+if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::ADMIN) == false){
+    header("Location: /user/login");
+    exit;
+}
+
+
 layout_header("Stefans Bank ADMIN");
 ?>
 

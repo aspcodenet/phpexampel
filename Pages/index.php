@@ -116,7 +116,14 @@ layout_sidenav($dbContext);
                     <td ><?php echo $customer->City ?></td>
                     <td><?php echo $customer->Country ?></td>
                     <td>
+                        <?php
+                    if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::ADMIN)){
+                        ?>    
                         <a class="listbutton" href="/customer?id=<?php echo $customer->Id ?>">Edit</a>
+                        <?php                        
+                    }
+                    ?>
+                        
                     </td>
                 </tr>
             <?php

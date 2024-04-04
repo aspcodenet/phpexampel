@@ -6,7 +6,7 @@ function layout_footer()  {
     <div class="content">
         <div class="footer-copyright">
             <p>
-                Copyright © 2024 <span>Systementor AB</span> Version: <span ></span>
+                Copyright © 2000-2024 <span>Systementor AB</span> Version: <span ></span>
             </p>
         </div>
         <div class="footer-menu">

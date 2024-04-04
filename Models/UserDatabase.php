@@ -95,7 +95,14 @@ class UserDatabase {
     function seedUsers(){
         if($this->pdo->query("select * from users where email='stefan.holmberg@systementor.se'")->rowCount() == 0){
             $userId = $this->auth->admin()->createUser("stefan.holmberg@systementor.se", "Hejsan123#", "stefan.holmberg@systementor.se");    
+            $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::ADMIN);
         }
+
+        if($this->pdo->query("select * from users where email='oliver@systementor.se'")->rowCount() == 0){
+            $userId = $this->auth->admin()->createUser("oliver@systementor.se", "Hejsan123#", "oliver@systementor.se");    
+            $this->auth->admin()->addRoleForUserById($userId, \Delight\Auth\Role::CONSUMER);
+        }
+
     }
     
 }

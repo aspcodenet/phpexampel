@@ -36,6 +36,19 @@ $router->addRoute('/admin', function () {
     require __DIR__ .'/Pages/admin.php';
 });
 
+$router->addRoute('/user/login', function () {
+    require __DIR__ .'/Pages/users/login.php';
+});
+
+$router->addRoute('/user/logout', function () {
+    require __DIR__ .'/Pages/users/logout.php';
+});
+
+$router->addRoute('/user/register', function () {
+    require __DIR__ .'/Pages/users/register.php';
+});
+
+
 
 $router->dispatch();
 ?>
