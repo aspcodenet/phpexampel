@@ -31,7 +31,7 @@ class DBContext{
         
     }
     
-    function searchCustomers($sortCol, $sortOrder, $q,$categoryId){
+    function searchCustomers($sortCol, $sortOrder, $q,$categoryId,$pageNo=1, $pageSize=30){
         if($sortCol == null){
             $sortCol = "Id";
         }
@@ -69,13 +69,18 @@ class DBContext{
 
         
         $sql .= " ORDER BY $sortCol $sortOrder ";    
+        $offset = ($pageNo-1)*$pageSize;
+        $sql2 = str_replace("SELECT * FROM ", "SELECT CEIL (COUNT(*)/$pageSize) FROM ", $sql);
+        $sql .= " LIMIT $offset,$pageSize";    
 
         $prep = $this->pdo->prepare($sql);
         $prep->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $prep->execute($paramsArray);
-
-
-        return $prep->fetchAll();        
+        $data = $prep->fetchAll();        
+        echo $sql2;
+        $stmt  = $this->pdo->query($sql2);
+        $num_pages = $stmt->fetchColumn();    
+        return ["data"=>$data,"numpages"=>$num_pages];
     }
 
  function getCustomer($id){

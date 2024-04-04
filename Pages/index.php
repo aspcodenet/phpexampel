@@ -8,6 +8,7 @@ require_once("Pages/layout/footer.php");
 $sortOrder = $_GET['sortOrder'] ?? "";
 $sortCol = $_GET['sortCol'] ?? "";
 $q = $_GET['q'] ?? "";
+$pageNo= $_GET['pageNo'] ?? "1";
 
 
 $dbContext = new DBContext();
@@ -103,7 +104,8 @@ layout_sidenav($dbContext);
         </thead>
         <tbody>
             <?php
-            foreach($dbContext->searchCustomers($sortCol,$sortOrder,$q,null) as $customer) {
+            $result = $dbContext->searchCustomers($sortCol,$sortOrder,$q,null,$pageNo);
+            foreach($result["data"] as $customer) {
             ?>
                 <tr class="tabulator-row">
                     <td >
@@ -131,6 +133,15 @@ layout_sidenav($dbContext);
             ?>
     </tbody>
     </table>
+    <?php 
+        echo $result["numpages"];
+        for($i = 1; $i <= $result["numpages"] ;$i++){
+            
+            echo "<a class='listbutton' href='?sortCol=$sortCol&sortOrder=$sortOrder&q=$q&pageNo=$i'>$i</a>&nbsp;";
+        }
+         
+
+    ?>
 
     <link rel="stylesheet" href="/css/tabulator/tabulator_modified.css">
 
