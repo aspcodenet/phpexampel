@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <body>
         <?php echo $message; ?>
         <h1><?php echo $_SERVER['REQUEST_METHOD']; ?>
-        <form method="POST">
+        <form method="POST"> 
             <input type="text" name="namn" />
             <input type="text" name="age" />
             <input type="submit" value="Spara" />

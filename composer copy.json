@@ -1,9 +1,0 @@
-{
-<<<<<<< HEAD
-=======
-    
->>>>>>> ee3036b5e699e200412ac2f12e16958dd640b5ea
-    "require": {
-        "vlucas/phpdotenv": "^5.6"
-    }
-}
