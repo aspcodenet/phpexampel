@@ -70,10 +70,8 @@ $customer = $dbContext->getCustomer($id);
             </li>
             <li class="line-split"></li>
             <li>
-                <a href="/public"  >
                     <span class="sidebar-icon"><i class="fas fa-calendar"></i></span>
                     <span class="sidebar-text"> Offices</span>
-                </a>
             </li>
             <?php foreach($dbContext->getAllOffices() as $office){ ?>
 

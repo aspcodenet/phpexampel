@@ -1,6 +1,10 @@
 <?php
 // globala initieringar !
 require_once(dirname(__FILE__) ."/Utils/Router.php");
+require_once("vendor/autoload.php");
+
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 $router = new Router();
 $router->addRoute('/', function () {
@@ -27,6 +31,11 @@ $router->addRoute('/input', function () {
 $router->addRoute('/viewcustomer', function () {
     require __DIR__ .'/Pages/viewcustomer.php';
 });
+
+$router->addRoute('/admin', function () {
+    require __DIR__ .'/Pages/admin.php';
+});
+
 
 $router->dispatch();
 ?>
