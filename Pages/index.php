@@ -134,10 +134,13 @@ layout_sidenav($dbContext);
     </tbody>
     </table>
     <?php 
-        echo $result["numpages"];
         for($i = 1; $i <= $result["numpages"] ;$i++){
+            if($i == $pageNo){
+                echo "$i&nbsp;";    
+            }else{
+                echo "<a class='listbutton' href='?sortCol=$sortCol&sortOrder=$sortOrder&q=$q&pageNo=$i'>$i</a>&nbsp;";
+            }
             
-            echo "<a class='listbutton' href='?sortCol=$sortCol&sortOrder=$sortOrder&q=$q&pageNo=$i'>$i</a>&nbsp;";
         }
          
 
