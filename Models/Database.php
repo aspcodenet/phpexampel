@@ -396,7 +396,7 @@ class DBContext{
             `TelephoneCountryCode` int NOT NULL,
             `Telephone` varchar(20) NOT NULL,
             `EmailAddress` varchar(50) NOT NULL,
-            `Popularity` INT default(0),
+            `Popularity` INT,
             `OfficeId` INT NOT NULL,
             PRIMARY KEY (`Id`),
             FOREIGN KEY (`OfficeId`)

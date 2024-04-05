@@ -32,6 +32,11 @@ $router->addRoute('/popular', function () {
     require __DIR__ .'/Pages/popular.php';
 });
 
+$router->addRoute('/test', function () {
+    require __DIR__ .'/Pages/newdesign.php';
+});
+
+
 
 $router->addRoute('/viewcustomer', function () {
     require __DIR__ .'/Pages/viewcustomer.php';
