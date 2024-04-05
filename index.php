@@ -28,6 +28,11 @@ $router->addRoute('/input', function () {
     require __DIR__ .'/Pages/form.php';
 });
 
+$router->addRoute('/popular', function () {
+    require __DIR__ .'/Pages/popular.php';
+});
+
+
 $router->addRoute('/viewcustomer', function () {
     require __DIR__ .'/Pages/viewcustomer.php';
 });

@@ -14,6 +14,9 @@ class Customer{
     public $Telephone;
     public $EmailAddress;
     public $OfficeId;
+
+    public $Popularity;
+
 };
 
 

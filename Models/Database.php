@@ -30,8 +30,15 @@ class DBContext{
         return $this->pdo->query('SELECT * FROM Office')->fetchAll(PDO::FETCH_CLASS, 'Office');
         
     }
+
+
+    function getPopularCustomers(){
+        return $this->pdo->query('select * from Customer order by Popularity desc limit 0,10')->fetchAll(PDO::FETCH_CLASS, 'Customer');
+        
+    }
+
     
-    function searchCustomers($sortCol, $sortOrder, $q,$categoryId){
+    function searchCustomers($sortCol, $sortOrder, $q,$categoryId, $pageNo = 1, $pageSize = 20){
         if($sortCol == null){
             $sortCol = "Id";
         }
@@ -62,7 +69,6 @@ class DBContext{
             }else{
                 $sql = $sql . " AND ";    
             }
-
             $sql = $sql . " ( OfficeId = :categoryId )";        
             $paramsArray["categoryId"] = $categoryId;                
         }
@@ -70,12 +76,27 @@ class DBContext{
         
         $sql .= " ORDER BY $sortCol $sortOrder ";    
 
+        $sqlCount = str_replace("SELECT * FROM ", "SELECT CEIL (COUNT(*)/$pageSize) FROM ", $sql);
+
+        // $pageNo = 1, $pageSize = 20
+        $offset = ($pageNo-1)*$pageSize;
+        $sql .= " limit $offset, $pageSize";    
+
         $prep = $this->pdo->prepare($sql);
         $prep->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $prep->execute($paramsArray);
+        $data = $prep->fetchAll();      // arrayen  
 
 
-        return $prep->fetchAll();        
+
+        $prep2 = $this->pdo->prepare($sqlCount);
+        $prep2->execute($paramsArray);
+
+        $num_pages = $prep2->fetchColumn();       // antal sidor tex 3      
+
+         $arr =  ["data"=>$data, "num_pages"=>$num_pages];
+         return $arr;
+
     }
 
  function getCustomer($id){
@@ -375,6 +396,7 @@ class DBContext{
             `TelephoneCountryCode` int NOT NULL,
             `Telephone` varchar(20) NOT NULL,
             `EmailAddress` varchar(50) NOT NULL,
+            `Popularity` INT default(0),
             `OfficeId` INT NOT NULL,
             PRIMARY KEY (`Id`),
             FOREIGN KEY (`OfficeId`)
