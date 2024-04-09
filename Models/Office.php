@@ -5,6 +5,8 @@ class Office{
     public $StreetAddress;
     public $City;
     public $Zipcode;
+
+    public $countrycode;
 };
 
 
