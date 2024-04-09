@@ -14,14 +14,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $password = $_POST['password']; // Hejsan123#
     try{
         $userId = $dbContext->getUsersDatabase()->getAuth()->register($username, $password, $username, function ($selector, $token) {
-            echo 'Send ' . $selector . ' and ' . $token . ' to the user (e.g. via email)';
-            echo '  For emails, consider using the mail(...) function, Symfony Mailer, Swiftmailer, PHPMailer, etc.';
-            echo '  For SMS, consider using a third-party service and a compatible SDK';
+            $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = 'smtp.ethereal.email';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'rollin61@ethereal.email';
+            $mail->Password = '1XaAWE4ZkqfF69mYcQ';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->From = "stefans@superdupershop.com"; 
+            $mail->FromName = "Hello"; //To address and name 
+            $mail->addAddress("recepient1@example.com"); //Address to which recipient will reply 
+            $mail->addReplyTo("noreply@ysuperdupershop.com", "No-Reply"); //CC and BCC 
+            $mail->isHTML(true); 
+            $mail->Subject = "Registrering"; 
+            $url = 'http://localhost:5000/verify_email?selector=' . \urlencode($selector) . '&token=' . \urlencode($token);    
+            $mail->Body = "<i>Hej, klicka på <a href='$url'>$url</a></i>";
+            $mail->send();
+
         });
         header('Location: /user/login');
         exit;
     }
     catch(Exception $e){
+        throw $e;
+        echo  $e->getMessage();
+        exit;
         $message = "Error";
     }
 
