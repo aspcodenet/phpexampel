@@ -58,6 +58,10 @@ $router->addRoute('/user/register', function () {
     require __DIR__ .'/Pages/users/register.php';
 });
 
+$router->addRoute('/user/registerthanks', function () {
+    require __DIR__ .'/Pages/users/registerthanks.php';
+});
+
 
 
 $router->dispatch();

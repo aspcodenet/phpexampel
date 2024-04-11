@@ -8,6 +8,7 @@ require_once("Pages/layout/footer.php");
 $dbContext = new DbContext();
 $message = "";
 $username = "";
+$registeredOk = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     // TODO:Add validation - redan registrerad, password != passwordAgain
     $username = $_POST['username'];
@@ -34,9 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $mail->send();
 
         });
-        header('Location: /user/login');
-        exit;
-    }
+        $registeredOk  = true;
+        //header('Location: /user/registerthanks');
+        //exit;
+}
     catch(Exception $e){
         throw $e;
         echo  $e->getMessage();
@@ -64,6 +66,14 @@ layout_header("Registrera");
     </div>
     
     <div class="content">
+    <?php if($registeredOk ){
+
+        ?>
+        <div>Tack för din registerinbg, kolla mailet och klicka </div>
+
+<?php
+    }else{
+        ?>
 
     <div class="row-box">
         <div class="col-boxes-1">
@@ -130,6 +140,9 @@ layout_header("Registrera");
 
         </div>
     </div>
+    <?php
+    }
+    ?>
 
     </div>
 
