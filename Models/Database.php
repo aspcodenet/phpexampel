@@ -2,6 +2,7 @@
 require_once('Models/Customer.php');
 require_once('Models/Office.php');
 require_once('Models/UserDatabase.php');
+require_once('migrations/migrationBase.php');
 
 
 class DBContext{
@@ -407,6 +408,11 @@ class DBContext{
 
         $this->usersDatabase->setupUsers();
         $this->usersDatabase->seedUsers();
+
+
+        new Migrator($this->pdo);
+        
+
 
         $initialized = true;
     }

@@ -17,6 +17,9 @@ class Customer{
 
     public $Popularity;
 
+    public $regno;
+
+
 };
 
 
