@@ -24,7 +24,7 @@ $router->addRoute('/office', function () {
     require __DIR__ .'/Pages/office.php';
 });
 
-$router->addRoute('/input', function () {
+$router->addRoute('/uttag', function () {
     require __DIR__ .'/Pages/form.php';
 });
 
