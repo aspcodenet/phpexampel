@@ -14,11 +14,15 @@ class BankAccount{
         $this->saldo = 1000;
     }
 
+    // function checkIfSaldoIsLessThanBelopp( $saldo, $belopp ){
+    //     if($saldo < $belopp){
+    //         throw new NotEnoughBalanceException("Belopp större än saldo");
+    //     }
+    // }
+
     function withdraw($belopp) {
-        if($this->saldo < $belopp){
-            throw new NotEnoughBalanceException("Belopp större än saldo");
-        }
-        if($belopp > 300){
+        $this->checkIfSaldoIsLessThanBelopp($this->saldo, $belopp);
+        If($belopp > 300){
             throw new TooMuchPerTimeException("Får inte ta ut mer än 300 per tillfälle");
         }
 

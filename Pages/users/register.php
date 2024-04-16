@@ -6,11 +6,13 @@ require_once("Pages/layout/sidenav.php");
 require_once("Pages/layout/footer.php");
 
 $dbContext = new DbContext();
-$message = "";
+$message  = "";
 $username = "";
 $registeredOk = false;
+
+//if(!$registeredOk)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    // TODO:Add validation - redan registrerad, password != passwordAgain
     $username = $_POST['username'];
     $password = $_POST['password']; // Hejsan123#
     try{
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $mail->Username = 'raheem2@ethereal.email';
         $mail->Password = 'PdZkY2RvfRyZGrgNAT';
         $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        $mail->Port = 588;
 
         $mail->From = "stefans@superdupershop.com"; 
         $mail->FromName = "Hello"; //To address and name 
