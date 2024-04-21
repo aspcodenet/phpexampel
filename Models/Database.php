@@ -8,7 +8,7 @@ require_once('migrations/migrationBase.php');
 class DBContext{
 
 
-    private $pdo;
+    public $pdo;
     private $usersDatabase;
 
     function getUsersDatabase(){
