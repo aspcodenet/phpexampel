@@ -63,6 +63,14 @@ $router->addRoute('/user/registerthanks', function () {
 });
 
 
+$router->addRoute('/popular2', function () {
+    require __DIR__ .'/Pages/popular2.php';
+});
+
+$router->addRoute('/json/popular', function () {
+    require __DIR__ .'/api/popular.php';
+});
+
 
 $router->dispatch();
 ?>
