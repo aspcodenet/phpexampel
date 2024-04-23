@@ -72,5 +72,10 @@ $router->addRoute('/json/popular', function () {
 });
 
 
+$router->addRoute('/addtocart', function () {
+    require __DIR__ .'/api/addtocart.php';
+});
+
+
 $router->dispatch();
 ?>

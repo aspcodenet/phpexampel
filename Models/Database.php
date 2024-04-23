@@ -319,6 +319,13 @@ class DBContext{
         return $this->pdo->lastInsertId();
     }
 
+    function addToCart($customerId){
+        $prep = $this->pdo->prepare('INSERT INTO ShoppingCartItem (Antal,CustomerId) VALUES(1,:customerId)');
+        $prep->execute(["customerId"=>$customerId]);
+        return 10;
+    }
+
+
 
     function updateCustomer($id, $givenname, $surname,$Streetaddress, $City, $Zipcode, $Country, $CountryCode, $Birthday, $NationalId, $TelephoneCountryCode, $Telephone, $EmailAddress, $OfficeId){
         $prep = $this->pdo->prepare("UPDATE  Customer SET
@@ -355,6 +362,20 @@ class DBContext{
 
         static $initialized = false;
         if($initialized) return;
+
+
+        $sql  ="CREATE TABLE IF NOT EXISTS `ShoppingCartItem` (
+            `Id` INT AUTO_INCREMENT NOT NULL,
+            `Antal` INT NOT NULL,
+            `CustomerId` INT NOT NULL,
+            PRIMARY KEY (`Id`),
+            FOREIGN KEY (`CustomerId`)
+                REFERENCES Customer(Id)
+                )";
+
+
+        $this->pdo->exec($sql);
+
 
 
         $sql  ="CREATE TABLE IF NOT EXISTS `Office` (

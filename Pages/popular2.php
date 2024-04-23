@@ -21,6 +21,7 @@ layout_header("Stefans Bank");
 <body>
 
 
+
 <!------------------sidenav-------------->
 <?php
 layout_sidenav($dbContext);
@@ -102,7 +103,6 @@ layout_sidenav($dbContext);
 layout_footer();
 ?>
 
-<script type="module" src="scripts/script.js"></script>
 </body>
 
 </html>

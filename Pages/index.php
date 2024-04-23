@@ -53,7 +53,15 @@ layout_header("Stefans Bank");
 
 
 <body>
+<script>
+async function addToCart(id){
+    const antal = await((await fetch(`/addtocart?id=${id}`)).text())
+    console.log(antal)
+    document.getElementById("antal").innerText = antal
+}
 
+
+</script>
 
 <!------------------sidenav-------------->
 <?php
@@ -82,7 +90,7 @@ layout_sidenav($dbContext);
                 <div class="table-section">
                     <div class="header-table">
                         <h2>Kunder</h2>
-                        <a id="clear-filter" href="javascript:void">see all</a>
+                        <a id="antal" href="javascript:void">Cart</a>
                     </div>
                 </div>
 
@@ -150,14 +158,7 @@ layout_sidenav($dbContext);
                     <td ><?php echo $customer->City ?></td>
                     <td><?php echo $customer->Country ?></td>
                     <td>
-                        <?php
-                    if($dbContext->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::ADMIN)){
-                        ?>    
-                        <a class="listbutton" href="/customer?id=<?php echo $customer->Id ?>">Edit</a>
-                        <?php                        
-                    }
-                    ?>
-                        
+                        <button class="listbutton" onclick="javascript:addToCart(<?php echo $customer->Id ?>)" >Add to cart</button>
                     </td>
                 </tr>
             <?php
@@ -193,8 +194,8 @@ layout_sidenav($dbContext);
 <?php
 layout_footer();
 ?>
-
-
+<!-- 
+<script type="module" src="scripts/cart.js"></script> -->
 </body>
 
 </html>
